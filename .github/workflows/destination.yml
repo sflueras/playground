@@ -37,7 +37,7 @@ jobs:
         run: unzip pr_number.zip
 
       - id: step1
-        run: echo "::set-output name=test::Roxana"
+        run: echo "::set-output name=test::$(cat pr_number)"
 
   # useValue:
   #   runs-on: ubuntu-latest
