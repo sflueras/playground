@@ -1,0 +1,16 @@
+name: destination
+
+on:
+  workflow_run:
+    workflows: [source]
+    types:
+      - completed
+
+jobs:
+  DeployToSecurityDev:
+    # not sure if this if is right, you will need to test
+    if: ${{ github.event.inputs.environment == 'stage' && github.event.inputs.customer == 'hansel' }}
+    uses: sflueras/playground/.github/workflows/source.yml@main
+    with:
+      customer: 'security'
+      environment: 'dev'

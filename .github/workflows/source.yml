@@ -1,0 +1,33 @@
+name: source
+on:
+   workflow_call:
+    inputs:
+      customer:
+        description: 'Customer name'
+        required: true
+        type: choice
+        default: hansel
+        options:
+          - bsn-alpha
+          - cor
+          - demo
+          - hansel
+          - matilda
+          - ppmi
+          - ppmi-alpha
+          - rchmg
+          - rchmg-alpha
+          - sherlock
+          - sny
+          - security
+      environment:
+        description: 'Environment'
+        required: true
+        type: environment
+    
+jobs:
+  test:
+    name: "Test job"
+    steps:
+      - run: |
+          echo "Hello ${{ github.event.inputs.customer }} - ${{ github.event.inputs.environment }}"
