@@ -10,7 +10,7 @@ jobs:
   download:
     runs-on: ubuntu-latest
     outputs:
-      region: ${{ steps.getRegion.outputs.test }}
+      output1: ${{ steps.step1.outputs.test }}
     steps:
       - name: 'Download artifact'
         uses: actions/github-script@v6
@@ -36,14 +36,14 @@ jobs:
       - name: 'UnzipArtifact'
         run: unzip pr_number.zip
 
-      - name: "GetRegion"
-        id: getRegion
+      - id: step1
         run: echo "::set-output name=test::Roxana"
 
   useValue:
     runs-on: ubuntu-latest
+    needs: download
     steps:
-      - run: echo "${{ needs.download.outputs.region }}"
+      - run: echo "${{ needs.download.outputs.output1 }}"
 
   # DeployToSecurityDev:
   #   # not sure if this if is right, you will need to test
