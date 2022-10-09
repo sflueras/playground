@@ -40,4 +40,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          echo "Hello ${{ github.event.inputs.customer }} - ${{ github.event.inputs.environment }}"
+          echo "Hello ${{ inputs.customer }} - ${{ inputs.environment }}"
