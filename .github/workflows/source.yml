@@ -1,6 +1,14 @@
 name: source
 on:
-   workflow_call: {}
+   workflow_call:
+    inputs:
+      customer:
+        type: string
+        required: true
+      environment:
+        type: environment
+        required: true
+
    workflow_dispatch:
     inputs:
       customer:
