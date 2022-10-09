@@ -40,9 +40,9 @@ jobs:
         id: getRegion
         run: echo ::set-output name=test::"$(cat pr_number)"
 
-    useValue:
-      steps:
-        - run: echo ${{ needs.download.outputs.region }}
+  useValue:
+    steps:
+      - run: echo ${{ needs.download.outputs.region }}
 
   # DeployToSecurityDev:
   #   # not sure if this if is right, you will need to test
