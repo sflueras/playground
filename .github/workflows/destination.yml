@@ -43,7 +43,7 @@ jobs:
   useValue:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ needs.download.outputs.region }}
+      - run: echo "${{ needs.download.outputs.region }}"
 
   # DeployToSecurityDev:
   #   # not sure if this if is right, you will need to test
