@@ -6,7 +6,7 @@ on:
         type: string
         required: true
       environment:
-        type: environment
+        type: string
         required: true
 
    workflow_dispatch:
