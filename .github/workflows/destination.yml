@@ -38,7 +38,7 @@ jobs:
 
       - name: "GetRegion"
         id: getRegion
-        run: echo ::set-output name=test::"$(cat pr_number)"
+        run: echo "::set-output name=test::$(cat pr_number)"
 
   useValue:
     runs-on: ubuntu-latest
