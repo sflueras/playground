@@ -38,7 +38,7 @@ jobs:
 
       - name: "GetRegion"
         id: getRegion
-        run: echo ::set-output name=test::"cat pr_number"
+        run: echo ::set-output name=test::"$(cat pr_number)"
 
   DeployToSecurityDev:
     # not sure if this if is right, you will need to test
@@ -46,7 +46,7 @@ jobs:
     with:
       customer: 'security'
       environment: 'dev'
-      awsRegion: ${{needs.download.outputs.region}}
+      awsRegion: ${{ needs.download.outputs.region }}
 
 # jobs:
 #   DownloadArtifact:
