@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     uses: dawidd6/action-download-artifact@v2
     with:
-      workflow: source.yml
+      workflow: sflueras/playground/.github/workflows/source.yml@main
     # steps:
     #   - name: Download artifact
     #     uses: actions/download-artifact@v2
