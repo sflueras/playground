@@ -28,6 +28,7 @@ on:
 jobs:
   test:
     name: "Test job"
+    runs-on: ubuntu-latest
     steps:
       - run: |
           echo "Hello ${{ github.event.inputs.customer }} - ${{ github.event.inputs.environment }}"
