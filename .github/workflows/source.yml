@@ -47,14 +47,14 @@ on:
     
 jobs:
   test:
-    name: "Test job"
+    name: "Testjob"
     runs-on: ubuntu-latest
     steps:
       - run: |
           echo "Hello ${{ inputs.customer }} - ${{ inputs.environment }}"
           echo "Region: ${{ inputs.awsRegion }}"
       
-      - name: Save Region
+      - name: SaveRegion
         run: |
           echo "region=${{ inputs.awsRegion }}" > ./outputs
       

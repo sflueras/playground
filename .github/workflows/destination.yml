@@ -8,7 +8,7 @@ on:
 
 jobs:
   DownloadArtifact:
-    Steps:
+    steps:
       - name: Download the release artifact
         uses: actions/download-artifact@v2
         with:
