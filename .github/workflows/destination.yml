@@ -13,6 +13,7 @@ jobs:
       - name: DownloadArtifact
         uses: dawidd6/action-download-artifact@v2.23.0
         with:
+          name: outputs
           workflow: sflueras/playground/.github/workflows/source.yml@main
     # steps:
     #   - name: Download artifact
