@@ -9,9 +9,11 @@ on:
 jobs:
   DownloadArtifact:
     runs-on: ubuntu-latest
-    uses: dawidd6/action-download-artifact@v2
-    with:
-      workflow: sflueras/playground/.github/workflows/source.yml@main
+    steps:
+      - name: DownloadArtifact
+        uses: dawidd6/action-download-artifact@v2.23.0
+        with:
+          workflow: sflueras/playground/.github/workflows/source.yml@main
     # steps:
     #   - name: Download artifact
     #     uses: actions/download-artifact@v2
