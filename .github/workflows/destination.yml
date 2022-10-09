@@ -9,16 +9,19 @@ on:
 jobs:
   DownloadArtifact:
     runs-on: ubuntu-latest
-    steps:
-      - name: Download the release artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: outputs
-          path: ./
-  DeployToSecurityDev:
-    # not sure if this if is right, you will need to test
-    uses: sflueras/playground/.github/workflows/source.yml@main
+    uses: dawidd6/action-download-artifact@v2
     with:
-      customer: 'security'
-      environment: 'dev'
-      awsRegion: cat ./outputs
+      workflow: source.yml
+    # steps:
+    #   - name: Download artifact
+    #     uses: actions/download-artifact@v2
+    #     with:
+    #       name: outputs
+    #       path: sflueras/playground/source
+  # DeployToSecurityDev:
+  #   # not sure if this if is right, you will need to test
+  #   uses: sflueras/playground/.github/workflows/source.yml@main
+  #   with:
+  #     customer: 'security'
+  #     environment: 'dev'
+  #     awsRegion: cat ./outputs
