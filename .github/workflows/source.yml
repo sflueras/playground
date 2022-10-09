@@ -1,29 +1,6 @@
 name: source
 on:
-   workflow_call:
-    inputs:
-      customer:
-        description: 'Customer name'
-        required: true
-        type: choice
-        default: hansel
-        options:
-          - bsn-alpha
-          - cor
-          - demo
-          - hansel
-          - matilda
-          - ppmi
-          - ppmi-alpha
-          - rchmg
-          - rchmg-alpha
-          - sherlock
-          - sny
-          - security
-      environment:
-        description: 'Environment'
-        required: true
-        type: environment
+   workflow_call: {}
    workflow_dispatch:
     inputs:
       customer:
