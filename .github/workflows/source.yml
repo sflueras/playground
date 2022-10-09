@@ -1,6 +1,6 @@
 name: source
 on:
-   workflow_call:
+   workflow_dispatch:
     inputs:
       customer:
         description: 'Customer name'
