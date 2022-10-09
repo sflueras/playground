@@ -41,12 +41,14 @@ jobs:
         run: echo ::set-output name=test::"$(cat pr_number)"
 
   DeployToSecurityDev:
+    steps:
+      - run: echo ${{ needs.download.outputs.region }}
     # not sure if this if is right, you will need to test
-    uses: sflueras/playground/.github/workflows/source.yml@main
-    with:
-      customer: 'security'
-      environment: 'dev'
-      awsRegion: ${{ needs.download.outputs.region }}
+      - uses: sflueras/playground/.github/workflows/source.yml@main
+        with:
+          customer: 'security'
+          environment: 'dev'
+          awsRegion: ${{ needs.download.outputs.region }}
 
 # jobs:
 #   DownloadArtifact:
