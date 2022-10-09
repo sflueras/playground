@@ -8,6 +8,7 @@ on:
 
 jobs:
   DownloadArtifact:
+    runs-on: ubuntu-latest
     steps:
       - name: Download the release artifact
         uses: actions/download-artifact@v2
