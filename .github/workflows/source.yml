@@ -46,30 +46,28 @@ on:
           - eu-central-1
 
 jobs:
+  test:
+    name: "Testjob"
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Hello ${{ inputs.customer }} - ${{ inputs.environment }}"
+          echo "Region: ${{ inputs.awsRegion }}"
+  
   upload:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Save PR number
+      - name: SaveRegion
         env:
           PR_NUMBER: ${{ github.event.number }}
         run: |
           mkdir -p ./pr
-          echo "HELLO WORLD!!!!" > ./pr/pr_number
+          echo ${{ inputs.awsRegion }} > ./pr/pr_number
       - uses: actions/upload-artifact@v3
         with:
           name: pr_number
           path: pr/
 
-# jobs:
-#   test:
-#     name: "Testjob"
-#     runs-on: ubuntu-latest
-#     steps:
-#       - run: |
-#           echo "Hello ${{ inputs.customer }} - ${{ inputs.environment }}"
-#           echo "Region: ${{ inputs.awsRegion }}"
-      
 #       - name: SaveRegion
 #         run: |
 #           echo ${{ inputs.awsRegion }} > ./outputs

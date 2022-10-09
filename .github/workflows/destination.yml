@@ -9,6 +9,8 @@ on:
 jobs:
   download:
     runs-on: ubuntu-latest
+    outputs:
+      region: ${{ steps.getRegion.outputs.test }}
     steps:
       - name: 'Download artifact'
         uses: actions/github-script@v6
@@ -31,12 +33,20 @@ jobs:
             let fs = require('fs');
             fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/pr_number.zip`, Buffer.from(download.data));
 
-      - name: 'Unzip artifact'
+      - name: 'UnzipArtifact'
         run: unzip pr_number.zip
 
-      - name:
-        run: cat pr_number
+      - name: "GetRegion"
+        id: getRegion
+        run: echo ::set-output name=test::"cat pr_number"
 
+  DeployToSecurityDev:
+    # not sure if this if is right, you will need to test
+    uses: sflueras/playground/.github/workflows/source.yml@main
+    with:
+      customer: 'security'
+      environment: 'dev'
+      awsRegion: ${{needs.download.outputs.region}}
 
 # jobs:
 #   DownloadArtifact:
