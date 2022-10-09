@@ -8,6 +8,9 @@ on:
       environment:
         type: string
         required: true
+      awsRegion:
+        type: string
+        required: true
 
    workflow_dispatch:
     inputs:
@@ -33,6 +36,14 @@ on:
         description: 'Environment'
         required: true
         type: environment
+      awsRegion:
+        description: 'AWS Region'
+        required: true
+        default: us-east-1
+        type: choice
+        options:
+          - us-east-1
+          - eu-central-1
     
 jobs:
   test:
@@ -41,3 +52,4 @@ jobs:
     steps:
       - run: |
           echo "Hello ${{ inputs.customer }} - ${{ inputs.environment }}"
+          echo "Region: ${{ inputs.awsRegion }}"
