@@ -21,3 +21,4 @@ jobs:
     with:
       customer: 'security'
       environment: 'dev'
+      awsRegion: cat ./outputs

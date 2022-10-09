@@ -56,7 +56,7 @@ jobs:
       
       - name: SaveRegion
         run: |
-          echo "region=${{ inputs.awsRegion }}" > ./outputs
+          echo ${{ inputs.awsRegion }} > ./outputs
       
       - uses: actions/upload-artifact@v3
         with:
