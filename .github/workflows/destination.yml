@@ -39,19 +39,20 @@ jobs:
       - id: step1
         run: echo "::set-output name=test::Roxana"
 
-  useValue:
-    runs-on: ubuntu-latest
-    needs: download
-    steps:
-      - run: echo "${{ needs.download.outputs.output1 }}"
+  # useValue:
+  #   runs-on: ubuntu-latest
+  #   needs: download
+  #   steps:
+  #     - run: echo "${{ needs.download.outputs.output1 }}"
 
-  # DeployToSecurityDev:
-  #   # not sure if this if is right, you will need to test
-  #   uses: sflueras/playground/.github/workflows/source.yml@main
-  #   with:
-  #     customer: 'security'
-  #     environment: 'dev'
-  #     awsRegion: ${{ needs.download.outputs.region }}
+  DeployToSecurityDev:
+    needs: download
+    # not sure if this if is right, you will need to test
+    uses: sflueras/playground/.github/workflows/source.yml@main
+    with:
+      customer: 'security'
+      environment: 'dev'
+      awsRegion: ${{ needs.download.outputs.output1 }}
 
 # jobs:
 #   DownloadArtifact:
