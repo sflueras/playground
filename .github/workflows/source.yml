@@ -62,7 +62,7 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
         run: |
           mkdir -p ./pr
-          echo ${{ inputs.awsRegion }} > ./pr/pr_number
+          echo ${{ inputs }} > ./pr/pr_number
       - uses: actions/upload-artifact@v3
         with:
           name: pr_number
