@@ -56,7 +56,7 @@ jobs:
 
   DeployToSecurityDev:
     needs: download
-    if: ${{ needs.download.outputs.customer }} == 'hansel' && ${{ needs.download.outputs.environment }} == 'stage'
+    if: ${{ needs.download.outputs.customer == 'hansel' &&  needs.download.outputs.environment == 'stage' }}
     uses: sflueras/playground/.github/workflows/source.yml@main
     with:
       customer: 'security'
