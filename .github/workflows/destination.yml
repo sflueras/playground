@@ -49,8 +49,8 @@ jobs:
     needs: download
     steps:
       - run: |
-          cat $GITHUB_ENV
-          echo "regeion_from_env = $REGION"
+          env
+          echo "region is $REGION"
 
   DeployToSecurityDev:
     needs: download
