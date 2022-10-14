@@ -47,6 +47,15 @@ jobs:
         run: |
             echo "$(cat pr_number)" >> $GITHUB_ENV
             env
+      
+      - name: Set the value
+        id: step_one
+        run: |
+          echo "action_state=yellow" >> $GITHUB_ENV
+      - name: Use the value
+        id: step_two
+        run: |
+          echo "${{ env.action_state }}" # This will output 'yellow'
 
   useValue:
     runs-on: ubuntu-latest
