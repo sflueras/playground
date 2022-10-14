@@ -45,7 +45,7 @@ jobs:
 
       - name: add to env
         run: |
-            cat pr_number >> $GITHUB_ENV
+            echo "$(cat pr_number)" >> $GITHUB_ENV
 
   useValue:
     runs-on: ubuntu-latest
