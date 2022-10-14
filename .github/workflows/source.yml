@@ -11,6 +11,17 @@ on:
       awsRegion:
         type: string
         required: true
+      chartName:
+        required: true
+        type: string
+      imageTag:
+        type: string
+        required: true
+      slackChannel:
+        # You may include a comma separated list of channels if you wish to post to multiple channels at once.
+        type: string
+        default: study-deploy
+        required: false
 
    workflow_dispatch:
     inputs:
@@ -44,6 +55,21 @@ on:
         options:
           - us-east-1
           - eu-central-1
+      chartName:
+        description: 'Chart name'
+        required: true
+        type: choice
+        options:
+          - study-manager
+          - triage
+      imageTag:
+        description: 'Image tag'
+        required: true
+      slackChannel:
+        # You may include a comma separated list of channels if you wish to post to multiple channels at once.
+        description: 'Slack channel id or channel name to post message'
+        default: study-deploy
+        required: false
 
 jobs:
   test:
@@ -62,7 +88,12 @@ jobs:
           PR_NUMBER: ${{ github.event.number }}
         run: |
           mkdir -p ./pr
-          echo "REGION=${{ inputs.awsRegion }}" > ./pr/pr_number
+          echo "CUSTOMER=${{ inputs.customer }}" >> ./pr/pr_number
+          echo "ENVIRONMENT=${{ inputs.environment }}" >> ./pr/pr_number
+          echo "REGION=${{ inputs.awsRegion }}" >> ./pr/pr_number
+          echo "CHART_NAME=${{ inputs.chartName }}" >> ./pr/pr_number
+          echo "IMAGE_TAG=${{ inputs.imageTag }}" >> ./pr/pr_number
+          echo "SLACK_CHANNEL=${{ inputs.slackChannel }}" >> ./pr/pr_number
       - uses: actions/upload-artifact@v3
         with:
           name: pr_number

@@ -10,7 +10,12 @@ jobs:
   download:
     runs-on: ubuntu-latest
     outputs:
-      output1: ${{ steps.step1.outputs.test }}
+      customer: ${{ steps.set_outputs.outputs.customer }}
+      environment: ${{ steps.set_outputs.outputs.environment }}
+      region: ${{ steps.set_outputs.outputs.region }}
+      chart_name: ${{ steps.set_outputs.outputs.chart_name }}
+      image_tag: ${{ steps.set_outputs.outputs.image_tag }}
+      slack_channel: ${{ steps.set_outputs.outputs.slack_channel }}
     steps:
       - name: 'Download artifact'
         uses: actions/github-script@v6
@@ -36,36 +41,18 @@ jobs:
       - name: 'UnzipArtifact'
         run: unzip pr_number.zip
 
-      - id: step1
-        run: echo "::set-output name=test::$(cat pr_number)"
-      
-      - id: step2
-        run: |
-            cat pr_number
+      - name: 'Set env vars'
+        run: cat pr_number >> $GITHUB_ENV
 
-      - name: add to env
+      - name: 'Set outputs'
+        id: set_outputs
         run: |
-            cat pr_number >> $GITHUB_ENV
-            env
-            echo "${{ env.REGION }}"
-      
-      - name: Set the value
-        id: step_one
-        run: |
-          echo "action_state=yellow" >> $GITHUB_ENV
-          env
-      - name: Use the value
-        id: step_two
-        run: |
-          echo "${{ env.action_state }}" # This will output 'yellow'
-
-  useValue:
-    runs-on: ubuntu-latest
-    needs: download
-    steps:
-      - run: |
-          env
-          echo "region is ${{ env.REGION }}"
+          echo "::set-output name=customer::${{ env.CUSTOMER }}"
+          echo "::set-output name=environment::${{ env.ENVIRONMENT }}"
+          echo "::set-output name=region::${{ env.REGION }}"
+          echo "::set-output name=chart_name::${{ env.CHART_NAME }}"
+          echo "::set-output name=image_tag::${{ env.IMAGE_TAG }}"
+          echo "::set-output name=slack_channel::${{ env.SLACK_CHANNEL }}"
 
   DeployToSecurityDev:
     needs: download
@@ -74,51 +61,7 @@ jobs:
     with:
       customer: 'security'
       environment: 'dev'
-      awsRegion: ${{ needs.download.outputs.output1 }}
-
-# jobs:
-#   DownloadArtifact:
-#       runs-on: ubuntu-latest
-#       steps:
-#         - name: 'Download artifact'
-#             uses: actions/github-script@v6
-#             with:
-#               script: |
-#                 let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
-#                    owner: context.repo.owner,
-#                    repo: context.repo.repo,
-#                    run_id: context.payload.workflow_run.id,
-#                 });
-#                 let matchArtifact = allArtifacts.data.artifacts.filter((artifact) => {
-#                   return artifact.name == "outputs"
-#                 })[0];
-#                 let download = await github.rest.actions.downloadArtifact({
-#                    owner: context.repo.owner,
-#                    repo: context.repo.repo,
-#                    artifact_id: matchArtifact.id,
-#                    archive_format: 'zip',
-#                 });
-#                 let fs = require('fs');
-#                 fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/outputs.zip`, Buffer.from(download.data));
-
-#         - name: 'Unzip artifact'
-#           run: unzip outputs.zip
-    # steps:
-    #   - name: DownloadArtifact
-    #     uses: dawidd6/action-download-artifact@v2.23.0
-    #     with:
-    #       name: outputs
-    #       workflow: sflueras/playground/.github/workflows/source.yml@main
-    # steps:
-    #   - name: Download artifact
-    #     uses: actions/download-artifact@v2
-    #     with:
-    #       name: outputs
-    #       path: sflueras/playground/source
-  # DeployToSecurityDev:
-  #   # not sure if this if is right, you will need to test
-  #   uses: sflueras/playground/.github/workflows/source.yml@main
-  #   with:
-  #     customer: 'security'
-  #     environment: 'dev'
-  #     awsRegion: cat ./outputs
+      awsRegion: ${{ needs.download.outputs.region }}
+      chartName: ${{ needs.download.outputs.chart_name }}
+      imageTag: ${{ needs.download.outputs.image_tag }}
+      slackChannel: ${{ needs.download.outputs.slack_channel }}
