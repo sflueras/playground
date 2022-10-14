@@ -45,8 +45,9 @@ jobs:
 
       - name: add to env
         run: |
-            echo "$(cat pr_number)" >> $GITHUB_ENV
+            cat pr_number >> $GITHUB_ENV
             env
+            echo "${{ env.REGION }}"
       
       - name: Set the value
         id: step_one
@@ -64,7 +65,7 @@ jobs:
     steps:
       - run: |
           env
-          echo "region is $REGION"
+          echo "region is ${{ env.REGION }}"
 
   DeployToSecurityDev:
     needs: download
