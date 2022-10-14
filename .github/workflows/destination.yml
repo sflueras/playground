@@ -40,15 +40,17 @@ jobs:
         run: echo "::set-output name=test::$(cat pr_number)"
       
       - id: step2
-        run: cat pr_number >> $GITHUB_ENV
+        run: |
+            cat pr_number
+            cat pr_number >> $GITHUB_ENV
 
   useValue:
     runs-on: ubuntu-latest
     needs: download
     steps:
       - run: |
-          echo $GITHUB_ENV
-          echo "regeion_from_env = ${{ env.REGION }}"
+          cat $GITHUB_ENV
+          echo "regeion_from_env = $REGION"
 
   DeployToSecurityDev:
     needs: download
