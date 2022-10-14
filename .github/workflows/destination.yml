@@ -42,6 +42,9 @@ jobs:
       - id: step2
         run: |
             cat pr_number
+
+      - name: add to env
+        run: |
             cat pr_number >> $GITHUB_ENV
 
   useValue:
