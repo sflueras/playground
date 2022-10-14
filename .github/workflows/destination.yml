@@ -38,12 +38,15 @@ jobs:
 
       - id: step1
         run: echo "::set-output name=test::$(cat pr_number)"
+      
+      - id: step2
+        run: cp pr_number .env
 
-  # useValue:
-  #   runs-on: ubuntu-latest
-  #   needs: download
-  #   steps:
-  #     - run: echo "${{ needs.download.outputs.output1 }}"
+  useValue:
+    runs-on: ubuntu-latest
+    needs: download
+    steps:
+      - run: echo "regeion_from_env = $REGION"
 
   DeployToSecurityDev:
     needs: download
